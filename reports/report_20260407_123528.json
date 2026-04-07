@@ -1,0 +1,64 @@
+{
+    "total_events": 26,
+    "unique_sessions": 1,
+    "top_attacker_ips": [
+        [
+            "127.0.0.1",
+            1
+        ]
+    ],
+    "top_usernames": [
+        [
+            "root",
+            1
+        ]
+    ],
+    "top_passwords": [
+        [
+            "some thing is fishy..",
+            1
+        ]
+    ],
+    "top_commands": [
+        [
+            "",
+            2
+        ],
+        [
+            "source cowrie/cowrie-env/bin/activate",
+            2
+        ],
+        [
+            "source cowrie-env/bin/activate",
+            2
+        ],
+        [
+            "cowrie start",
+            2
+        ],
+        [
+            "cowrie status",
+            2
+        ],
+        [
+            "# You're already inside ~/cowrie-honeypot-project/cowrie/",
+            1
+        ],
+        [
+            "# So logs are at var/log/cowrie/ NOT cowrie/var/log/cowrie/",
+            1
+        ],
+        [
+            "cp var/log/cowrie/cowrie.json* ../logs/raw/",
+            1
+        ],
+        [
+            "cd ~/cowrie-honeypot-project",
+            1
+        ],
+        [
+            "python scripts/analyze_logs.py",
+            1
+        ]
+    ]
+}

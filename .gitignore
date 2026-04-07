@@ -1,0 +1,16 @@
+# Virtual environment
+cowrie-env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Sensitive files
+*.pem
+*.key
+
+# Logs (IMPORTANT - don't upload raw logs)
+logs/raw/*.json
+
+# OS files
+.DS_Store
