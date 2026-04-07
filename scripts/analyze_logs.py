@@ -1,4 +1,5 @@
 # scripts/analyze_logs.py
+
 import json
 import os
 from collections import Counter
@@ -6,6 +7,7 @@ from datetime import datetime
 
 LOG_PATH = "../logs/raw/"
 REPORT_PATH = "../reports/"
+
 
 def load_logs(log_dir):
     events = []
@@ -19,6 +21,7 @@ def load_logs(log_dir):
                         continue
     return events
 
+
 def analyze(events):
     ips = Counter()
     commands = Counter()
@@ -30,14 +33,28 @@ def analyze(events):
         etype = e.get("eventid", "")
         src_ip = e.get("src_ip", "unknown")
 
+        # 🔐 Count login attempts
         if "login" in etype:
             ips[src_ip] += 1
             usernames[e.get("username", "")] += 1
-            passwords[e.get("password", "")] += 1
 
+            pwd = e.get("password", "")
+            if pwd and "fishy" not in pwd.lower():  # filter sensitive password
+                passwords[pwd] += 1
+
+        # 💻 Count executed commands (cleaned)
         if "command" in etype:
-            commands[e.get("input", "")] += 1
+            cmd = e.get("input", "").strip()
 
+            if (
+                cmd
+                and not cmd.startswith("#")          # ignore comments
+                and "cowrie" not in cmd              # ignore your setup cmds
+                and "activate" not in cmd
+            ):
+                commands[cmd] += 1
+
+        # 📌 Track sessions
         sessions.add(e.get("session", ""))
 
     return {
@@ -49,13 +66,17 @@ def analyze(events):
         "top_commands": commands.most_common(10),
     }
 
+
 def save_report(report):
     os.makedirs(REPORT_PATH, exist_ok=True)
     filename = REPORT_PATH + f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+
     with open(filename, "w") as f:
         json.dump(report, f, indent=4)
+
     print(f"[+] Report saved to {filename}")
     return filename
+
 
 def print_report(report):
     print("\n===== COWRIE HONEYPOT ANALYSIS REPORT =====")
@@ -78,10 +99,18 @@ def print_report(report):
     for cmd, c in report["top_commands"]:
         print(f"    {str(cmd)[:50]:<52} {c}")
 
+
 if __name__ == "__main__":
     print("[*] Loading Cowrie JSON logs...")
     events = load_logs(LOG_PATH)
+
     print(f"[*] Loaded {len(events)} events.")
+
+    if len(events) == 0:
+        print("[!] No logs found. Generate traffic first!")
+        exit()
+
     report = analyze(events)
+
     print_report(report)
     save_report(report)

